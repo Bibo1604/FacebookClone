@@ -16,7 +16,7 @@ function InputBox() {
         e.preventDefault();
 
         if (!inputRef.current.value) return;
-
+        
         const docRef = await addDoc(collection(db, "posts"), {
             message: inputRef.current.value,
             name: session.user.name,
@@ -41,7 +41,7 @@ function InputBox() {
                         className='rounded-full h-12 bg-gray-200 flex-grow px-5 focus:outline-none'
                     />
                 </form>
-                <button hidden type='submit' onClick={sendPost}>Submit</button>
+                <button type='submit' onClick={sendPost}>Submit</button>
             </div>
 
             <div className='flex justify-evenly p-3 border-t'>
