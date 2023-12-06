@@ -21,7 +21,7 @@ function Post({ name, message, email, timestamp, image, postImage }) {
         </div>
         {postImage && (
             <div className='relative h-56 md:h-96 bg-white'>
-                <Image src={postImage} objectFit='cover' fill/>
+                <Image src={postImage} objectFit='cover' fill alt=''/>
             </div>
         )}
 

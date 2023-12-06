@@ -4,28 +4,28 @@ import StoryCard from './StoryCard'
 const stories = [
     {
         name: "Hoang Nguyen",
-        src: "https://links.papareact.com/zof",
-        profile: "https://links.papareact.com/l4v"
+        src: "/images/stories/1.jpg",
+        profile: "/images/avatars/me.jpg"
     },
     {
-        name: "Elon Musk",
-        src: "https://links.papareact.com/4zn",
-        profile: "https://links.papareact.com/kxk"
+        name: "Fanny Elisa",
+        src: "/images/stories/2.jpg",
+        profile: "/images/avatars/1.jpg"
     },
     {
-        name: "Jeff Bezoz",
-        src: "https://links.papareact.com/k2j",
-        profile: "https://links.papareact.com/f0p"
+        name: "Geffrey Davis",
+        src: "/images/stories/3.jpg",
+        profile: "/images/avatars/2.jpg"
     },
     {
-        name: "Mark Zuckerberg",
-        src: "https://links.papareact.com/xql",
-        profile: "https://links.papareact.com/snf"
+        name: "Marty Ricky",
+        src: "/images/stories/4.jpg",
+        profile: "/images/avatars/3.jpg"
     },
     {
-        name: "Bill Gates",
-        src: "https://links.papareact.com/4u4",
-        profile: "https://links.papareact.com/zvy"
+        name: "Neely Lizzy",
+        src: "/images/stories/5.jpg",
+        profile: "/images/avatars/4.jpg"
     },
 ]
 

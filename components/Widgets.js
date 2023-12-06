@@ -6,13 +6,13 @@ import { SearchIcon } from '@heroicons/react/outline'
 import { DotsHorizontalIcon, VideoCameraIcon } from '@heroicons/react/solid'
 
 const contacts = [
-    {src: "https://links.papareact.com/f0p", name: "Jeff Bezoz"},
-    {src: "https://links.papareact.com/kxk", name: "Elon Musk"},
-    {src: "https://links.papareact.com/zvy", name: "Bill Gates"},
-    {src: "https://links.papareact.com/snf", name: "Mark Zuckerberg"},
-    {src: "https://links.papareact.com/d0c", name: "Harry Potter"},
-    {src: "https://links.papareact.com/6gg", name: "The Queen"},
-    {src: "https://links.papareact.com/r57", name: "James Bond"},
+    {src: "/images/avatars/1.jpg", name: "Fanny Elisa"},
+    {src: "/images/avatars/2.jpg", name: "Geffrey Davis"},
+    {src: "/images/avatars/3.jpg", name: "Marty Ricky"},
+    {src: "/images/avatars/4.jpg", name: "Neely Lizzy"},
+    {src: "/images/avatars/5.jpg", name: "Andie Bryan"},
+    {src: "/images/avatars/6.jpg", name: "Tracie Lavern"},
+    {src: "/images/avatars/7.jpg", name: "Denver Kash"},
 ]
 
 function Widgets() {

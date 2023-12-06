@@ -4,7 +4,7 @@ import React from 'react'
 function Contact({src, name}) {
   return (
     <div className='flex items-center space-x-3 mb-2 relative hover:bg-gray-200 cursor-pointer p-2 rounded-xl'>
-        <Image className='rounded-full w-12 h-12' objectFit='cover' src={src} width={50} height={50} layout='fixed'/>
+        <Image className='rounded-full w-12 h-12' alt='' objectFit='cover' src={src} width={50} height={50}/>
         <p>{name}</p>
         <div className='absolute bottom-2 left-8 bg-green-500 h-3 w-3 rounded-full'></div>
     </div>

@@ -8,7 +8,6 @@ function Posts() {
     const postsRef = collection(db, 'posts');
     const [realtimePosts] = useCollection(
         query(postsRef, orderBy("timestamp", "desc")),
-        // collection(db, 'posts'),
         {
             snapshotListenOptions: { includeMetadataChanges: true },
         }

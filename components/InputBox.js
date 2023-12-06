@@ -65,7 +65,7 @@ function InputBox() {
     return (
         <div className='bg-white -2 rounded-2xl shadow-md text-gray-500 font-medium mt-6'>
             <div className='flex space-x-4 p-4 items-center'>
-                <Image className='rounded-full' src={session.user.image} width={40} height={40} layout='fixed' />
+                <Image className='rounded-full' src={session.user.image} width={40} height={40} alt=''/>
                 <form className='flex flex-1'>
                     <input
                         ref={inputRef}
