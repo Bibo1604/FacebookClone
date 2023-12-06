@@ -1,32 +1,65 @@
 import { useSession } from 'next-auth/react';
 import Image from 'next/image'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 // import icon
 import { EmojiHappyIcon } from '@heroicons/react/outline';
 import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid';
-import { db } from "../firebase"
-import { serverTimestamp, collection, addDoc } from "firebase/firestore";
+import { db, storage } from "../firebase"
+import { serverTimestamp, collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 
 function InputBox() {
     const { data: session } = useSession();
-    const inputRef = useRef(null)
+    const inputRef = useRef(null);
+    const filePickerRef = useRef(null);
+    const [imageToPost, setImageToPost] = useState(null);
 
     const sendPost = async (e) => {
         e.preventDefault();
 
         if (!inputRef.current.value) return;
         
-        const docRef = await addDoc(collection(db, "posts"), {
+        await addDoc(collection(db, "posts"), {
             message: inputRef.current.value,
             name: session.user.name,
             email: session.user.email,
             image: session.user.image,
             timestamp: serverTimestamp()
-        });
-        console.log("Document written with ID: ", docRef.id);
+        }).then(async(document) => {
+            if (imageToPost) {
+                const newFile = await fetch(imageToPost).then(r => r.blob());
+                const storageRef = ref(storage, `posts/${document.id}`);
+                const uploadTask = uploadBytesResumable(storageRef, newFile);
+                removeImage();
+                uploadTask.on('state_change', null, error => console.error(error), () => {
+                    // When the upload completes
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setDoc(doc(db, 'posts', document.id), {
+                            postImage: downloadURL
+                        }, {merge: true})
+                    })
+                })
+            }
+        })
 
         inputRef.current.value = "";
+    }
+
+    const addImageToPost = (e) => {
+        const reader = new FileReader();
+        if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        reader.onload = (readerEvent) => {
+            setImageToPost(readerEvent.target.result);
+            console.log(imageToPost);
+        }
+    }
+
+    const removeImage = () => {
+        setImageToPost(null);
     }
 
     return (
@@ -40,8 +73,14 @@ function InputBox() {
                         placeholder={`What's on your mind, ${session.user.name}?`}
                         className='rounded-full h-12 bg-gray-200 flex-grow px-5 focus:outline-none'
                     />
+                    <button hidden type='submit' onClick={sendPost}>Submit</button>
                 </form>
-                <button type='submit' onClick={sendPost}>Submit</button>
+                {imageToPost && (
+                    <div onClick={removeImage} className='flex flex-col filter hover:brightness-110 transition duration-150 transform hover:scale-105 cursor-pointer'>
+                        <img src={imageToPost} alt='' className='h-10 object-contain'/>
+                        <p className='text-xs text-red-500 text-center'>Remove</p>
+                    </div>
+                )}
             </div>
 
             <div className='flex justify-evenly p-3 border-t'>
@@ -50,9 +89,10 @@ function InputBox() {
                     <p className='text-xs sm:text-sm xl:text-base'>Live Video</p>
                 </div>
 
-                <div className='inputIcon'>
+                <div className='inputIcon' onClick={() => filePickerRef.current.click()}>
                     <CameraIcon className='h-7 text-green-400' />
                     <p className='text-xs sm:text-sm xl:text-base'>Photo/Video</p>
+                    <input ref={filePickerRef} type='file' hidden onClick={addImageToPost} />
                 </div>
 
                 <div className='inputIcon'>
